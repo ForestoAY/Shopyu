@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function FeaturedProducts() {
   const products = [
     {
@@ -117,9 +119,9 @@ export default function FeaturedProducts() {
       </div>
 
       <div className="text-center mt-6 mb-4">
-        <a href="/products" className="btn btn-primary">
-          See All Products
-        </a>
+        <Link href="/products">
+          <p className="btn btn-primary">See All Products</p>
+        </Link>
       </div>
     </>
   );
