@@ -1,4 +1,10 @@
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Login Page",
+  description: "Login with your Shopyu Account",
+};
 
 export default function LoginPage() {
   return (
