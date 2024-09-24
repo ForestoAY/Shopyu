@@ -11,11 +11,11 @@ export default async function ProductDetail({ params }: {params: {slug: string}}
   return (
     <div className="container mx-auto mt-5 px-20">
       <div className="flex flex-col md:flex-row">
-        <div className="md:w-1/2">
+        <div className="md:w-1/2 flex flex-col items-center">
           <img
             src={product.thumbnail}
             alt={product.name}
-            className="w-full h-64 object-cover rounded-lg shadow-lg mb-4"
+            className="w-3/4 h-80 object-cover rounded-lg shadow-lg mb-4"
           />
           <div className="flex space-x-2 overflow-x-auto">
             {product.images.map((image: string, i: number) => (

@@ -1,3 +1,5 @@
+"use client"
+
 import { ThreeCircles } from "react-loader-spinner";
 
 export default function Loader() {

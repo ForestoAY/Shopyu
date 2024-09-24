@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 export default function ProductList() {
   const [products, setProducts] = useState<ProductTypes[]>([]);
-
+  
   const fetchProducts = async () => {
     try {
       const response = await fetch("http://localhost:3000/api/products");

@@ -18,4 +18,26 @@ export class ProductModel {
     const featuredProducts = await this.collection().find().sort({createdAt: -1}).limit(5).toArray();
     return featuredProducts;
   }
+
+  // static async findAll( searchQuery: string = '', pageNumber: number = 1, pageSizeNumber: number = 10) {
+  //   const searchFilter = searchQuery 
+  //   ? { name: { $regex: searchQuery, $options: 'i' } }
+  //   : {};
+
+  //   const totalProducts = await this.collection().countDocuments(searchFilter);
+  //   const products = await this.collection()
+  //   .find(searchFilter)
+  //   .skip((pageNumber - 1) * pageSizeNumber)
+  //   .limit(pageSizeNumber)
+  //   .toArray();
+
+  //   return {
+  //     totalProducts,
+  //     totalPages: Math.ceil(totalProducts / pageSizeNumber),
+  //     currentPage: pageNumber,
+  //     pageSize: pageSizeNumber,
+  //     products,
+  //   };
+  // }
 }
+
