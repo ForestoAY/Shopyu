@@ -11,7 +11,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <div className="card card-compact bg-base-100 w-64 shadow-xl flex flex-col">
-      <Link href={`products/${product.id}`} className="flex-grow">
+      <Link href={`products/${product.slug}`} className="flex-grow">
         <figure className="h-48 overflow-hidden">
           <img
             src={product.thumbnail}
@@ -21,7 +21,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </figure>
       </Link>
       <div className="card-body flex flex-col justify-between">
-        <Link href={`products/${product.id}`}>
+        <Link href={`products/${product.slug}`}>
           <h2 className="card-title text-lg font-semibold">{product.name}</h2>
           <p className="text-sm text-gray-600">{truncatedDescription}</p>
           <p className="text-lg font-bold text-red-500 mt-2">
