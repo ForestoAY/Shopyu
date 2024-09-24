@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ProductCard from "./ProductCard";
 
 export default function FeaturedProducts() {
   const products = [
@@ -102,20 +103,9 @@ export default function FeaturedProducts() {
   return (
     <>
       <div className="flex flex-wrap gap-5 justify-center">
-        {products.map((product, i) => (
-          <div key={i} className="card card-compact bg-base-100 w-64 shadow-xl">
-            <figure>
-              <img src={product.thumbnail} alt={product.name} />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title">{product.name}</h2>
-              <p>{product.description}</p>
-              <div className="card-actions justify-end">
-                <button className="btn btn-primary">Buy Now</button>
-              </div>
-            </div>
-          </div>
-        ))}
+        {products.map((e, i) => {
+          return <ProductCard key={i} product={e} />;
+        })}
       </div>
 
       <div className="text-center mt-6 mb-4">

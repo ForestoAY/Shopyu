@@ -1,3 +1,3 @@
-export default function ProductList(){
+export default function ProductDetail(){
   
 }
