@@ -6,11 +6,16 @@ export class ProductModel {
     return db.collection<ProductTypes>("products");
   }
 
-  static findAll(){
-    return this.collection().find().toArray();
+  static async findAll(){
+    return await this.collection().find().toArray();
   }
 
-  static findBySlug(slug: string) {
-    return this.collection().findOne({ slug: slug });
+  static async findBySlug(slug: string) {
+    return await this.collection().findOne({ slug: slug });
+  }
+
+  static async findByFeatured(){
+    const featuredProducts = await this.collection().find().sort({createdAt: -1}).limit(5).toArray();
+    return featuredProducts;
   }
 }
