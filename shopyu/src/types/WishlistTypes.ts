@@ -1,7 +1,9 @@
+import { ObjectId } from "mongodb";
+
 export interface WishlistTypes {
-  _id?: string;
-  userId: string;
-  productId: string;
+  _id?: ObjectId;
+  userId: ObjectId;
+  productId: ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
