@@ -1,4 +1,5 @@
 import { Product } from "@/app/products/page";
+import RemoveWishlist from "./RemoveWishlist";
 
 export default function WishlistCard({ product }: { product: Product }) {
   return (
@@ -17,9 +18,7 @@ export default function WishlistCard({ product }: { product: Product }) {
           Price: {product.price.toLocaleString()} IDR
         </p>
       </div>
-      <div className="flex-shrink-0">
-        <button className="btn btn-primary">Remove</button>
-      </div>
+      <RemoveWishlist />
     </div>
   );
 }
