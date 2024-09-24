@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Search from "./Search";
 
 export default function Navbar() {
   return (
@@ -21,9 +20,6 @@ export default function Navbar() {
             <Link href="/wishlist">Wishlist</Link>
           </li>
         </ul>
-      </div>
-      <div className="flex-none gap-2">
-        <Search />
       </div>
     </div>
   );

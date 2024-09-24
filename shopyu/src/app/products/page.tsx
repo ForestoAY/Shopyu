@@ -1,6 +1,7 @@
 "use client"
 
 import ProductCard from "@/components/ProductCard";
+import Search from "@/components/Search";
 import { ProductTypes } from "@/types/ProductTypes";
 import { useEffect, useState } from "react";
 
@@ -25,10 +26,15 @@ export default function ProductList() {
   }, [])
 
   return (
-    <div className="flex flex-wrap gap-5 justify-center">
-      {products.map((e, i) => {
-        return <ProductCard key={i} product={e} />;
-      })}
+    <div>
+      <div>
+        <Search />
+      </div>
+      <div className="flex flex-wrap gap-5 justify-center">
+        {products.map((e, i) => {
+          return <ProductCard key={i} product={e} />;
+        })}
+      </div>
     </div>
   );
 }
