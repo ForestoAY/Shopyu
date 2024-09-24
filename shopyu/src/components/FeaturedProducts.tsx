@@ -23,7 +23,7 @@ export default async function FeaturedProducts() {
 
       <div className="text-center mt-6 mb-4">
         <Link href="/products">
-          <p className="btn btn-primary">See All Products</p>
+          <p className="btn bg-orange-500 hover:bg-orange-600 text-white">See All Products</p>
         </Link>
       </div>
     </>
