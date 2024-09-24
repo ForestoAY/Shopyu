@@ -1,8 +1,10 @@
-import { Product } from "@/app/products/page";
+"use client"
+
 import Link from "next/link";
 import AddWishlist from "./AddWishlist.tsx";
+import { ProductTypes } from "@/types/ProductTypes.js";
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({ product }: { product: ProductTypes }) {
   const maxDescriptionLength = 100;
   const truncatedDescription =
     product.description.length > maxDescriptionLength
