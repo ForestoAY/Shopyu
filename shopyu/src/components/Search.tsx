@@ -1,3 +1,5 @@
+"use client"
+
 export default function Search() {
   return (
     <div className="flex justify-end mb-4 pe-10">
