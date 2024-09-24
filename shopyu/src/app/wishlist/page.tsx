@@ -1,9 +1,9 @@
 import WishlistCard from "@/components/WishlistCard";
-import { Product } from "../products/page";
+import { ProductTypes } from "@/types/ProductTypes";
 
 export default async function WishlistPage() {
   const data = await fetch("http://localhost:3001/products");
-  const wishlist: Product[] = await data.json();
+  const wishlist: ProductTypes[] = await data.json();
 
   return (
     <div className="container mx-auto p-4">
