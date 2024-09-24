@@ -1,3 +1,5 @@
+"use client"
+
 import RemoveWishlist from "./RemoveWishlist";
 import { ProductTypes } from "@/types/ProductTypes";
 

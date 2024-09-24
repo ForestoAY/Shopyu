@@ -1,3 +1,5 @@
+"use client"
+
 export default function AddWishlist() {
   return (
     <div className="card-actions justify-end">

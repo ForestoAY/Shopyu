@@ -1,3 +1,5 @@
+"use client"
+
 export default function RemoveWishlist() {
   return (
     <div className="flex-shrink-0">
