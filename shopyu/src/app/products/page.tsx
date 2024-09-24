@@ -15,7 +15,7 @@ export default function ProductList() {
       }
       const json: ProductTypes[] = await response.json();
       setProducts(json);
-    } catch (error: any) {
+    } catch (error) {
       throw new Error("Failed to fetch products");
     }
   }

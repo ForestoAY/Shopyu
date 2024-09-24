@@ -1,7 +1,7 @@
-import { Product } from "@/app/products/page";
 import RemoveWishlist from "./RemoveWishlist";
+import { ProductTypes } from "@/types/ProductTypes";
 
-export default function WishlistCard({ product }: { product: Product }) {
+export default function WishlistCard({ product }: { product: ProductTypes }) {
   return (
     <div className="flex items-center border-b pb-4">
       <div className="flex-shrink-0">
