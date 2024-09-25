@@ -15,7 +15,7 @@ export class WishlistModel {
     return await this.collection().find({ userId }).toArray();
   }
 
-  static async addToWishlist(userId: ObjectId, productId: ObjectId) {
+  static async addToWishlist(userId: ObjectId, productId: ObjectId) {    
     const createdAt = new Date();
     const updatedAt = new Date();
     return await this.collection().insertOne({ userId, productId, createdAt, updatedAt });

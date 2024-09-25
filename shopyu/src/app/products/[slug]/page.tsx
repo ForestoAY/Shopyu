@@ -62,7 +62,7 @@ export default async function ProductDetail({ params }: {params: {slug: string}}
               </span>
             ))}
           </div>
-          <AddWishlist />
+          <AddWishlist productId={product._id}/>
         </div>
       </div>
     </div>

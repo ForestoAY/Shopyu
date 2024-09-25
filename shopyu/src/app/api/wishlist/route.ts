@@ -21,3 +21,19 @@ export async function GET(request: NextRequest, {params} : {params: {userId: str
     return handleError(error);
   }
 }
+
+export async function POST(request: NextRequest) {
+    try {
+      const data = await request.json()
+      console.log(data)
+      const { productId } = data;
+      const userId = String(request.headers.get('x-user-id'));
+      console.log(userId)
+      console.log(productId)
+
+      await WishlistModel.addToWishlist(new ObjectId(userId), new ObjectId(productId));
+      return NextResponse.json({ message: 'Product added to wishlist' });
+    } catch (error) {
+      return handleError(error);
+    }
+}

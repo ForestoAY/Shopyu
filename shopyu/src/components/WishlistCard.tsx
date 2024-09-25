@@ -17,10 +17,16 @@ export default function WishlistCard({ product }: { product: ProductTypes }) {
         <h2 className="text-lg font-semibold">{product.name}</h2>
         <p className="text-gray-600">{product.description}</p>
         <p className="text-lg font-bold text-red-500">
-          Price: {product.price.toLocaleString()} IDR
+          {product.price.toLocaleString('id-ID', {
+              style: 'currency',
+              currency: 'IDR',
+              minimumFractionDigits: 2, 
+            })}
         </p>
       </div>
-      <RemoveWishlist />
+      <div className="mx-5">
+        <RemoveWishlist />
+      </div>
     </div>
   );
 }

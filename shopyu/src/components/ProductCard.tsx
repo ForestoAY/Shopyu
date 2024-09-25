@@ -35,7 +35,7 @@ export default function ProductCard({ product }: { product: ProductTypes }) {
           </p>
         </Link>
         <div className="mt-4">
-          <AddWishlist />
+          <AddWishlist productId={product._id}/>
         </div>
       </div>
     </div>
