@@ -47,7 +47,11 @@ export default async function ProductDetail({ params }: {params: {slug: string}}
         <div className="md:w-1/2 md:pl-6">
           <h1 className="text-2xl font-bold mb-2">{product.name}</h1>
           <p className="text-lg font-semibold text-red-500 mb-4">
-            Price: {product.price.toLocaleString()} IDR
+            {product.price.toLocaleString('id-ID', {
+              style: 'currency',
+              currency: 'IDR',
+              minimumFractionDigits: 2, 
+            })}
           </p>
           <p className="text-gray-700 mb-4">{product.excerpt}</p>
           <p className="text-gray-600 mb-4">{product.description}</p>
