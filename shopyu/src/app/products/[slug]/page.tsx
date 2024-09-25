@@ -1,5 +1,20 @@
 import AddWishlist from "@/components/AddWishlist.tsx";
 import { ProductTypes } from "@/types/ProductTypes";
+import { Metadata, ResolvingMetadata } from "next";
+
+export async function generateMetadata({params}: {params: {slug: string}}, parent: ResolvingMetadata): Promise<Metadata>  {
+  const response = await fetch(`http://localhost:3000/api/products/${params.slug}`)
+  const product = await response.json();
+  return {
+    title: product.name,
+    description: product.description,
+    openGraph: {
+      images: [
+        product.images
+      ]
+    }
+  }
+}
 
 export default async function ProductDetail({ params }: {params: {slug: string}}) {
   const response = await fetch(`http://localhost:3000/api/products/${params.slug}`);
