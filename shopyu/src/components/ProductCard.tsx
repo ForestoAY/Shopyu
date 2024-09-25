@@ -27,7 +27,11 @@ export default function ProductCard({ product }: { product: ProductTypes }) {
           <h2 className="card-title text-lg font-semibold">{product.name}</h2>
           <p className="text-sm text-gray-600">{truncatedDescription}</p>
           <p className="text-lg font-bold text-red-500 mt-2">
-            Price: {product.price.toLocaleString()} IDR
+            {product.price.toLocaleString('id-ID', {
+              style: 'currency',
+              currency: 'IDR',
+              minimumFractionDigits: 2, 
+            })}
           </p>
         </Link>
         <div className="mt-4">
