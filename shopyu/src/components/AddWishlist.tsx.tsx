@@ -2,13 +2,14 @@
 
 import { handleError } from "@/helpers/handleError";
 import { ObjectId } from "mongodb";
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 
 export default function AddWishlist({ productId }: { productId: ObjectId }) {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleAdd = async () => {
+  const handleAdd = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     setIsLoading(true);
     setErrorMessage(null);
     try {
