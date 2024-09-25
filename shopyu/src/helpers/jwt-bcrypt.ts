@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 const JWT_SECRET = process.env.JWT_SECRET || 'secret_api';
 
 type dataTypes = {
-  name: string;
+  name?: string | undefined;
   username: string;
   email: string;
 };
