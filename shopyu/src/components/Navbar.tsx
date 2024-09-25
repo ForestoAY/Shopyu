@@ -33,10 +33,10 @@ export default async function Navbar() {
                 redirect("/login");
               }}
             >
-              <button className="btn btn-outline">Logout</button>
+              <button className="btn bg-red-500 hover:bg-red-600 text-white">Logout</button>
             </form>
           ) : (
-            <Link href="/login" className="btn btn-primary">
+            <Link href="/login" className="btn bg-orange-500 hover:bg-orange-600 text-white">
               Login
             </Link>
           )}
