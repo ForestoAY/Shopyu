@@ -1,5 +1,8 @@
+import { UserTypes } from "@/types/UserTypes";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Login Page",
@@ -7,6 +10,30 @@ export const metadata: Metadata = {
 };
 
 export default function LoginPage() {
+  const login = async (formData: FormData) => {
+    "use server"
+    
+    const body = Object.fromEntries(formData.entries());
+
+    const res = await fetch("http://localhost:3000/api/login", {
+      body: JSON.stringify(body),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+
+    if (!res.ok) {
+      const data = await res.json() as { error: string }
+      return redirect(`/login?error=${data.error}`)
+    }
+
+    const data = await res.json() as { access_token: string, user: UserTypes }
+    cookies().set("Authorizatioon", `Bearer ${data.access_token}}`)
+    cookies().set("User", `Bearer ${data.user}}`)
+
+    redirect("/")
+  }
   return (
     <div className="min-h-screen bg-orange-500 flex flex-col justify-center items-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -14,12 +41,13 @@ export default function LoginPage() {
           Login to Shopyu
         </h2>
 
-        <form>
+        <form action={login}>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
               Email
             </label>
             <input
+              name="email"
               type="text"
               placeholder="Enter your email"
               className="input input-bordered w-full mt-1"
@@ -31,6 +59,7 @@ export default function LoginPage() {
               Password
             </label>
             <input
+              name="password"
               type="password"
               placeholder="Enter your password"
               className="input input-bordered w-full mt-1"
