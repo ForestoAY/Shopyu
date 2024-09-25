@@ -1,29 +1,49 @@
-"use client"
+"use client";
 
+import { handleError } from "@/helpers/handleError";
 import { ObjectId } from "mongodb";
+import { useState } from "react";
 
-export default function RemoveWishlist({ productId }:{
-  productId: ObjectId;
-}) {
-  // const userId = dapat dari Auth 
-  const handleDelete = async () => {
-    try {
-      const response = await fetch(`http://localhost:3000/api/wishlist/${productId}`, {
-        method: "DELETE",
-      });
-      
-      if (!response.ok) {
-        throw new Error("Failed to remove item from wishlist");
-      }
-      return Response.json({ message: "Item removed from wishlist" });
-    } catch (error) {
-      throw new Error(error.message)
-    }
-  }
+export default function RemoveWishlist({ productId }: { productId: ObjectId }) {
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  return (
-    <div className="flex-shrink-0">
-      <button  onClick={handleDelete} className="btn bg-orange-500 hover:bg-orange-600 text-white">Remove</button>
-    </div>
-  );
+    const handleRemove = async () => {
+        setIsLoading(true);
+        setErrorMessage(null);
+        try {
+            const response = await fetch(`http://localhost:3000/api/wishlist`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-user-id": document.cookie
+                },
+                body: JSON.stringify({ productId }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to remove item from wishlist");
+            }
+
+            const result = await response.json();
+            console.log(result.message);
+        } catch (error) {
+            handleError(error)
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    return (
+        <div className="card-actions justify-end">
+            <button 
+                onClick={handleRemove} 
+                className="btn bg-red-500 hover:bg-red-600 text-white" 
+                disabled={isLoading}
+            >
+                {isLoading ? "Removing..." : "Remove from Wishlist"}
+            </button>
+            {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+        </div>
+    );
 }

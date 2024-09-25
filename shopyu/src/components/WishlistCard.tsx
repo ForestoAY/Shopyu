@@ -25,7 +25,7 @@ export default function WishlistCard({ product }: { product: ProductTypes }) {
         </p>
       </div>
       <div className="mx-5">
-        <RemoveWishlist />
+        <RemoveWishlist productId={product._id}/>
       </div>
     </div>
   );
