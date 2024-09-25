@@ -6,14 +6,12 @@ export default async function Navbar() {
   const isLogin = cookies().has("Authorization");
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 px-4 flex justify-between">
       <div className="flex-1">
-        <Link href="/">
-          <p className="btn btn-ghost text-xl">Shopyu</p>
-        </Link>
+        <Link href="/" className="btn btn-ghost normal-case text-xl">Shopyu</Link>
       </div>
-      <div className="flex-none">
-        <ul className="menu menu-horizontal px-1">
+      <div className="flex-1 justify-center">
+        <ul className="menu menu-horizontal px-1 space-x-2">
           <li>
             <Link href="/">Home</Link>
           </li>
@@ -25,20 +23,24 @@ export default async function Navbar() {
           </li>
         </ul>
       </div>
-      <div className="navbar-end">
-        {isLogin ? (
-          <form action={async() => {
-              "use server"
-              cookies().delete("Authorization");
-              cookies().delete("User");
-              redirect("/login");
-            }}>
-            <button className="btn">Logout</button>
-          </form>
-        ) : (
-          <Link href="/login" className="btn">Login</Link>
-        )}
-      </div>
+      <div className="flex-1 justify-end">
+          {isLogin ? (
+            <form
+              action={async () => {
+                "use server";
+                cookies().delete("Authorization");
+                cookies().delete("User");
+                redirect("/login");
+              }}
+            >
+              <button className="btn btn-outline">Logout</button>
+            </form>
+          ) : (
+            <Link href="/login" className="btn btn-primary">
+              Login
+            </Link>
+          )}
+        </div>
     </div>
   );
 }
