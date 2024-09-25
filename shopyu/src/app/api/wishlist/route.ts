@@ -4,9 +4,10 @@ import { WishlistModel } from "@/models/WishlistModel";
 import { ProductTypes } from "@/types/ProductTypes";
 import { WishlistTypes } from "@/types/WishlistTypes";
 import { ObjectId } from "mongodb";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: Request, {params} : {params: {userId: string}}) {
-  const userId = "66f2b6f3f443b85d8e85f13f" // hardcode
+export async function GET(request: NextRequest, {params} : {params: {userId: string}}) {
+  const userId = String(request.headers.get("x-user-id"));    
   try {
     const wishlistItems: WishlistTypes[] = await WishlistModel.findByUserId(new ObjectId(userId));
     const productIds = wishlistItems.map(item => item.productId);
@@ -15,7 +16,7 @@ export async function GET(request: Request, {params} : {params: {userId: string}
       .find({ _id: { $in: objectIds } })
       .toArray();
 
-    return Response.json(products);
+    return NextResponse.json(products);
   } catch (error){
     return handleError(error);
   }

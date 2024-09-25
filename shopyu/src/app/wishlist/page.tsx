@@ -1,6 +1,7 @@
 "use client"
 
 import WishlistCard from "@/components/WishlistCard";
+import { handleError } from "@/helpers/handleError";
 import { ProductTypes } from "@/types/ProductTypes";
 import { useEffect, useState } from "react";
 
@@ -9,14 +10,20 @@ export default function WishlistPage() {
 
   const fetchWishlistProducts = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/wishlist");
+      const cookie = document.cookie;      
+      const response = await fetch("http://localhost:3000/api/wishlist", {
+        headers: {
+          Cookie: cookie
+        }
+      });
+
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }
       const json: ProductTypes[] = await response.json();
       setWishlistProducts(json);
     } catch (error) {
-      throw new Error("Failed to fetch products");
+      return handleError(error)
     }
   }
   

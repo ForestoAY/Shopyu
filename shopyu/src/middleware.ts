@@ -7,14 +7,16 @@ import { CustomError, handleError } from "./helpers/handleError";
 
 async function auth(request: NextRequest) {
   const authCookie = cookies().get("Authorization");
+  
   if(!authCookie) throw new CustomError("Invalid token", 401);
 
   const [type, token] = authCookie.value.split(" ");
   if (type !== "Bearer") throw new CustomError("Invalid token", 401);
-
+  
   const jwtSecret = new TextEncoder().encode(process.env.JWT_SECRET);
+  
   const { payload } = await jwtVerify<WithId<UserTypes>>(token, jwtSecret)
-
+  
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-user-id", payload._id.toString());
   requestHeaders.set("x-user-email", payload.email);

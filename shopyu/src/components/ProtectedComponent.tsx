@@ -29,4 +29,10 @@ export default function ProtectedComponent({
       </>
     )
   }
+
+  return (
+    <>
+      {children}
+    </>
+  )
 }

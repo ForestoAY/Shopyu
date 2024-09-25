@@ -4,7 +4,11 @@ import { ObjectId } from "mongodb";
 
 export class WishlistModel {
   static collection(){
-    return db.collection<WishlistTypes>("wishlists");
+    return db.collection<WishlistTypes>("wishlist");
+  }
+
+  static async findAll(){
+    return await this.collection().find().toArray();
   }
 
   static async findByUserId(userId: ObjectId) {
