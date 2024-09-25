@@ -6,7 +6,14 @@ export class ProductModel {
     return db.collection<ProductTypes>("products");
   }
 
-  static async findAll(){
+  static async findAll(searchQuery?: string){
+    if (searchQuery) {
+      return await this.collection()
+        .find({
+          name: { $regex: searchQuery, $options: "i" },
+        })
+        .toArray();
+    }
     return await this.collection().find().toArray();
   }
 
