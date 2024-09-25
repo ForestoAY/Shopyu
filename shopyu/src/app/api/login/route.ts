@@ -28,7 +28,7 @@ export async function POST(request: Request) {
 
     const { password, ...safeUser } = user
 
-    const access_token = signToken(safeUser, process.env.JWT_SECRET);
+    const access_token = signToken(safeUser);
 
     // cookies().set("Authorizatioon", `Bearer ${access_token}}`)
 

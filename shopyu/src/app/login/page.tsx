@@ -29,7 +29,7 @@ export default function LoginPage() {
     }
 
     const data = await res.json() as { access_token: string, user: UserTypes }
-    cookies().set("Authorizatioon", `Bearer ${data.access_token}}`)
+    cookies().set("Authorization", `Bearer ${data.access_token}}`)
     cookies().set("User", `Bearer ${data.user}}`)
 
     redirect("/")
