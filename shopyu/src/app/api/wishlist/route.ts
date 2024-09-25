@@ -1,3 +1,4 @@
+import { handleError } from "@/helpers/handleError";
 import { ProductModel } from "@/models/ProductModel";
 import { WishlistModel } from "@/models/WishlistModel";
 import { ProductTypes } from "@/types/ProductTypes";
@@ -15,10 +16,7 @@ export async function GET(request: Request, {params} : {params: {userId: string}
       .toArray();
 
     return Response.json(products);
-  } catch (error: any){
-    return Response.json(
-      { message: error.message },
-      { status: error.status || 500 }
-    )
+  } catch (error){
+    return handleError(error);
   }
 }
