@@ -5,7 +5,7 @@ import Search from "@/components/Search";
 import { ProductTypes } from "@/types/ProductTypes";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import InfiniteScroll from "react-infinite-scroll-component";
+import InfiniteScrollProducts from "@/components/InfiniteScrollProducts";
 
 export default function ProductList() {
   const [products, setProducts] = useState<ProductTypes[]>([]);
@@ -68,18 +68,11 @@ export default function ProductList() {
       </div>
 
       {!searchQuery ? (
-        <InfiniteScroll
-          dataLength={visibleProducts.length}
-          next={loadMoreProducts}
+        <InfiniteScrollProducts
+          products={visibleProducts}
+          loadMore={loadMoreProducts}
           hasMore={hasMore}
-          loader={<h4>Loading...</h4>}
-          endMessage={<p>No more products</p>}
-          className="flex flex-wrap gap-5 justify-center"
-        >
-          {visibleProducts.map((product, index) => (
-            <ProductCard key={index} product={product} />
-          ))}
-        </InfiniteScroll>
+        />
       ) : (
         <div className="flex flex-wrap gap-5 justify-center">
           {visibleProducts.map((product, index) => (
