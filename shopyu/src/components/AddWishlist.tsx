@@ -3,15 +3,27 @@
 import { handleError } from "@/helpers/handleError";
 import { ObjectId } from "mongodb";
 import { MouseEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function AddWishlist({ productId }: { productId: ObjectId }) {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleAdd = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMessage(null);
+    
+    const isLogin = document.cookie.includes("Authorization");
+
+    if (!isLogin) {
+      const error = "You are unauthenticated. Please log in to add items to your wishlist.";
+      router.push(`/login?error=${error}`);
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const response = await fetch(`http://localhost:3000/api/wishlist`, {
         method: "POST",
