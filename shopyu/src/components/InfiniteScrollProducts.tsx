@@ -3,6 +3,7 @@
 import InfiniteScroll from "react-infinite-scroll-component";
 import ProductCard from "@/components/ProductCard";
 import { ProductTypes } from "@/types/ProductTypes";
+import Loader from "./Loader";
 
 interface InfiniteScrollProductsProps {
   products: ProductTypes[];
@@ -20,7 +21,7 @@ export default function InfiniteScrollProducts({
       dataLength={products.length}
       next={loadMore}
       hasMore={hasMore}
-      loader={<h4>Loading...</h4>}
+      loader={<Loader />}
       endMessage={<p className="text-xl mb-5">No more products</p>}
       className="flex flex-wrap gap-5 justify-center"
     >
