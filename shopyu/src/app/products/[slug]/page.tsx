@@ -1,4 +1,4 @@
-import AddWishlist from "@/components/AddWishlist.tsx";
+import AddWishlist from "@/components/AddWishlist";
 import { ProductTypes } from "@/types/ProductTypes";
 import { Metadata, ResolvingMetadata } from "next";
 

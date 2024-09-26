@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import AddWishlist from "./AddWishlist.tsx";
+import AddWishlist from "./AddWishlist";
 import { ProductTypes } from "@/types/ProductTypes.js";
 
 export default function ProductCard({ product }: { product: ProductTypes }) {
