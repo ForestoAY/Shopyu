@@ -4,7 +4,12 @@ import { handleError } from "@/helpers/handleError";
 import { ObjectId } from "mongodb";
 import { MouseEvent, useState } from "react";
 
-export default function RemoveWishlist({ productId }: { productId: ObjectId }) {
+interface RemoveWishlistProps {
+    productId: ObjectId;
+    onRemove: () => void;
+}
+
+export default function RemoveWishlist({ productId, onRemove }: RemoveWishlistProps) {
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -17,7 +22,7 @@ export default function RemoveWishlist({ productId }: { productId: ObjectId }) {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
-                    "x-user-id": document.cookie
+                    "x-user-id": document.cookie,
                 },
                 body: JSON.stringify({ productId }),
             });
@@ -26,10 +31,10 @@ export default function RemoveWishlist({ productId }: { productId: ObjectId }) {
                 throw new Error("Failed to remove item from wishlist");
             }
 
-            const result = await response.json();
-            console.log(result.message);
+            await response.json();
+            onRemove();
         } catch (error) {
-            handleError(error)
+            handleError(error);
         } finally {
             setIsLoading(false);
         }

@@ -1,35 +1,44 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import RemoveWishlist from "./RemoveWishlist";
 import { ProductTypes } from "@/types/ProductTypes";
 
-export default function WishlistCard({ product }: { product: ProductTypes }) {
+interface WishlistCardProps {
+  product: ProductTypes;
+  onRemove: (id: string) => void;
+}
+
+export default function WishlistCard({ product, onRemove }: WishlistCardProps) {
   return (
-    <Link href={`products/${product.slug}`}>
-      <div className="flex items-center border-b pb-4">
+    <div className="flex border rounded-lg shadow-md p-4 w-4/5 items-center bg-white transition-transform transform hover:scale-105">
+      <Link href={`products/${product.slug}`} className="flex-grow flex items-center">
         <div className="flex-shrink-0">
           <img
             src={product.thumbnail}
             alt={product.name}
-            className="w-20 h-20 object-cover rounded"
+            className="w-24 h-24 object-cover rounded-md transition-transform transform hover:scale-105"
           />
         </div>
         <div className="ml-4 flex-grow">
-          <h2 className="text-lg font-semibold">{product.name}</h2>
-          <p className="text-gray-600">{product.description}</p>
-          <p className="text-lg font-bold text-red-500">
+          <h2 className="text-lg font-semibold text-gray-800 hover:text-blue-500 transition-colors">
+            {product.name}
+          </h2>
+          <p className="text-gray-600 text-sm overflow-hidden whitespace-normal">
+            {product.description}
+          </p>
+          <p className="text-lg font-bold text-red-500 mt-1">
             {product.price.toLocaleString('id-ID', {
-                style: 'currency',
-                currency: 'IDR',
-                minimumFractionDigits: 2, 
-              })}
+              style: 'currency',
+              currency: 'IDR',
+              minimumFractionDigits: 2,
+            })}
           </p>
         </div>
-        <div className="mx-5">
-          <RemoveWishlist productId={product._id}/>
-        </div>
+      </Link>
+      <div className="ml-5 flex-shrink-0">
+        <RemoveWishlist productId={product._id} onRemove={() => onRemove(product._id)} />
       </div>
-    </Link>
+    </div>
   );
 }

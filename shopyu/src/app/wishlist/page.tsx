@@ -31,6 +31,10 @@ export default function WishlistPage() {
     }
   };
 
+  const handleRemove = async (id: string) => {
+    await fetchWishlistProducts();
+  };
+
   useEffect(() => {
     fetchWishlistProducts();
   }, []);
@@ -43,9 +47,9 @@ export default function WishlistPage() {
       ) : wishlistProducts.length === 0 ? (
         <p>Your wishlist is empty.</p>
       ) : (
-        <div className="space-y-4">
-          {wishlistProducts.map((e, i) => (
-            <WishlistCard key={i} product={e} />
+        <div className="space-y-4 flex flex-col items-center">
+          {wishlistProducts.map((product) => (
+            <WishlistCard key={String(product._id)} product={product} onRemove={handleRemove} />
           ))}
         </div>
       )}
