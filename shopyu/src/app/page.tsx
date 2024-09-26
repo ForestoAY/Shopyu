@@ -7,6 +7,7 @@ export default function Home() {
     <>
       <Banner />
       <Info />
+      <p className="text-2xl font-bold text-center my-6">Featured Products</p>
       <FeaturedProducts />
     </>
   );
