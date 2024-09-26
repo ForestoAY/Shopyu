@@ -10,7 +10,7 @@ export async function generateMetadata({params}: {params: {slug: string}}): Prom
     description: product.description,
     openGraph: {
       images: [
-        product.images
+        product.thumbnail
       ]
     }
   }
