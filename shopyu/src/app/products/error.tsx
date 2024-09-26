@@ -2,10 +2,10 @@
 
 type ErrorProps = {
   error: Error;
-  reset: () => {};
+  reset: () => void;
 };
 
-export default function Error({ error, reset }: ErrorProps) {
+export default function Error({ error }: ErrorProps) {
   return (
     <div>
       <h1>Error occured: {error.message}</h1>

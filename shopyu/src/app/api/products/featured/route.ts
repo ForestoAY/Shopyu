@@ -1,7 +1,9 @@
 import { handleError } from "@/helpers/handleError";
 import { ProductModel } from "@/models/ProductModel";
 
-export async function GET(request: Request) {
+export const dynamic = 'force-dynamic'
+
+export async function GET() {
   try {
     const products = await ProductModel.findByFeatured();
     return Response.json(products)

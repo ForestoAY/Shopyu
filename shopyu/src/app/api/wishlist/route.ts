@@ -6,7 +6,7 @@ import { WishlistTypes } from "@/types/WishlistTypes";
 import { ObjectId } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest, {params} : {params: {userId: string}}) {
+export async function GET(request: NextRequest) {
   const userId = String(request.headers.get("x-user-id"));    
   try {
     const wishlistItems: WishlistTypes[] = await WishlistModel.findByUserId(new ObjectId(userId));

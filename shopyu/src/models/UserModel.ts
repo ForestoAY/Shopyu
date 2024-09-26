@@ -42,7 +42,7 @@ export class UserModel {
     const result = await this.collection().insertOne(newUser);
 
     const { password, ...userWithoutPassword } = newUser
-    
+    console.log(password);
     return {
       ...userWithoutPassword,
       _id: result.insertedId

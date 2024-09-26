@@ -15,7 +15,7 @@ export default function LoginPage() {
     
     const body = Object.fromEntries(formData.entries());
 
-    const res = await fetch("http://localhost:3000/api/login", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/login`, {
       body: JSON.stringify(body),
       method: "POST",
       headers: {
@@ -73,7 +73,7 @@ export default function LoginPage() {
           </div>
 
           <div className="text-center">
-            <span className="text-sm">Don't have an account? </span>
+            <span className="text-sm">Don&apos;t have an account? </span>
             <Link
               href="/register"
               className="text-sm text-blue-500 hover:underline"

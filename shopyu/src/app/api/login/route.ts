@@ -2,7 +2,6 @@ import { handleError } from "@/helpers/handleError";
 import { comparePasswords, signToken } from "@/helpers/jwt-bcrypt";
 import { UserModel } from "@/models/UserModel";
 import { UserSchema } from "@/types/UserTypes";
-import { cookies } from "next/headers";
 
 const LoginSchema = UserSchema.pick({
   email: true,
@@ -27,10 +26,9 @@ export async function POST(request: Request) {
     }
 
     const { password, ...safeUser } = user
-
+    console.log(password);
+    
     const access_token = signToken(safeUser);
-
-    // cookies().set("Authorizatioon", `Bearer ${access_token}}`)
 
     return Response.json({
       access_token,

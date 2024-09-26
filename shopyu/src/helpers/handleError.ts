@@ -9,7 +9,7 @@ export class CustomError extends Error {
   }
 } 
 
-export function handleError(error: any){ 
+export function handleError(error: unknown){ 
   if (error instanceof CustomError) {
     return NextResponse.json({
       error: error.message

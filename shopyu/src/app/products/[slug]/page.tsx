@@ -1,9 +1,9 @@
 import AddWishlist from "@/components/AddWishlist";
 import { ProductTypes } from "@/types/ProductTypes";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 
-export async function generateMetadata({params}: {params: {slug: string}}, parent: ResolvingMetadata): Promise<Metadata>  {
-  const response = await fetch(`http://localhost:3000/api/products/${params.slug}`)
+export async function generateMetadata({params}: {params: {slug: string}}): Promise<Metadata>  {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${params.slug}`)
   const product = await response.json();
   return {
     title: product.name,
@@ -17,7 +17,7 @@ export async function generateMetadata({params}: {params: {slug: string}}, paren
 }
 
 export default async function ProductDetail({ params }: {params: {slug: string}}) {
-  const response = await fetch(`http://localhost:3000/api/products/${params.slug}`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${params.slug}`);
   if (!response.ok) {
     throw new Error("Failed to fetch product");
   }

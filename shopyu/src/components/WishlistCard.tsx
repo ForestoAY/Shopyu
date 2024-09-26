@@ -3,10 +3,11 @@
 import Link from "next/link";
 import RemoveWishlist from "./RemoveWishlist";
 import { ProductTypes } from "@/types/ProductTypes";
+import { ObjectId } from "mongodb";
 
 interface WishlistCardProps {
   product: ProductTypes;
-  onRemove: (id: string) => void;
+  onRemove: (id: ObjectId) => void;
 }
 
 export default function WishlistCard({ product, onRemove }: WishlistCardProps) {

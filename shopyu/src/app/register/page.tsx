@@ -13,7 +13,7 @@ export default function RegisterPage() {
 
     const body = Object.fromEntries(formData.entries());
 
-    const res = await fetch("http://localhost:3000/api/register", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/register`, {
       body: JSON.stringify(body),
       method: "POST",
       headers: {
@@ -26,8 +26,7 @@ export default function RegisterPage() {
       return redirect(`/register?error=${data.error}`)
     }
 
-    const data = await res.json() as { message: string }
-    return redirect("/");
+    return redirect("/login");
   }
   return (
     <div className="min-h-screen bg-orange-500 flex flex-col justify-center items-center">

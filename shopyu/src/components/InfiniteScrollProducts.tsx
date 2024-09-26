@@ -22,7 +22,11 @@ export default function InfiniteScrollProducts({
       next={loadMore}
       hasMore={hasMore}
       loader={<Loader />}
-      endMessage={<p className="text-xl mb-5">No more products</p>}
+      endMessage={
+        <div className="w-full text-center mt-5">
+          <p className="text-xl mb-5">No more products</p>
+        </div>
+      }
       className="flex flex-wrap gap-5 justify-center"
     >
       {products.map((product, index) => (

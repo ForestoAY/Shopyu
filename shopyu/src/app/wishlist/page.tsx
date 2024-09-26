@@ -13,7 +13,7 @@ export default function WishlistPage() {
   const fetchWishlistProducts = async () => {
     try {
       const cookie = document.cookie;
-      const response = await fetch("http://localhost:3000/api/wishlist", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/wishlist`, {
         headers: {
           Cookie: cookie,
         },
@@ -31,7 +31,7 @@ export default function WishlistPage() {
     }
   };
 
-  const handleRemove = async (id: string) => {
+  const handleRemove = async () => {
     await fetchWishlistProducts();
   };
 

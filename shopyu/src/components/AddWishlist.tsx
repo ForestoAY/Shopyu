@@ -4,6 +4,7 @@ import { handleError } from "@/helpers/handleError";
 import { ObjectId } from "mongodb";
 import { MouseEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { WishlistTypes } from "@/types/WishlistTypes";
 
 export default function AddWishlist({ productId }: { productId: ObjectId }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +27,7 @@ export default function AddWishlist({ productId }: { productId: ObjectId }) {
 
         if (response.ok) {
           const wishlistItems = await response.json();
-          const exists = wishlistItems.some(item => item._id === productId);
+          const exists = wishlistItems.some((item: WishlistTypes) => item._id === productId);
           setIsAdded(exists);
         }
       } catch (error) {
@@ -53,7 +54,7 @@ export default function AddWishlist({ productId }: { productId: ObjectId }) {
 
     try {
       const userId = String(document.cookie.split('=')[1]);
-      const response = await fetch(`http://localhost:3000/api/wishlist`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/wishlist`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
