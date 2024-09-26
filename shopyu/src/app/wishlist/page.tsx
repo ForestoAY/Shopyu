@@ -1,20 +1,22 @@
-"use client"
+"use client";
 
 import WishlistCard from "@/components/WishlistCard";
 import { handleError } from "@/helpers/handleError";
 import { ProductTypes } from "@/types/ProductTypes";
 import { useEffect, useState } from "react";
+import Loader from "@/components/Loader";
 
 export default function WishlistPage() {
   const [wishlistProducts, setWishlistProducts] = useState<ProductTypes[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchWishlistProducts = async () => {
     try {
-      const cookie = document.cookie;      
+      const cookie = document.cookie;
       const response = await fetch("http://localhost:3000/api/wishlist", {
         headers: {
-          Cookie: cookie
-        }
+          Cookie: cookie,
+        },
       });
 
       if (!response.ok) {
@@ -23,18 +25,22 @@ export default function WishlistPage() {
       const json: ProductTypes[] = await response.json();
       setWishlistProducts(json);
     } catch (error) {
-      return handleError(error)
+      handleError(error);
+    } finally {
+      setLoading(false);
     }
-  }
-  
+  };
+
   useEffect(() => {
     fetchWishlistProducts();
-  }, [])
+  }, []);
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Your Wishlist</h1>
-      {wishlistProducts.length === 0 ? (
+      {loading ? (
+        <Loader />
+      ) : wishlistProducts.length === 0 ? (
         <p>Your wishlist is empty.</p>
       ) : (
         <div className="space-y-4">
