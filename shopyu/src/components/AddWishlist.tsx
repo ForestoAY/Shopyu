@@ -2,13 +2,40 @@
 
 import { handleError } from "@/helpers/handleError";
 import { ObjectId } from "mongodb";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AddWishlist({ productId }: { productId: ObjectId }) {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isAdded, setIsAdded] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const checkWishlist = async () => {
+      const isLogin = document.cookie.includes("Authorization");
+      if (!isLogin) return;
+
+      const userId = String(document.cookie.split('=')[1]);
+      try {
+        const response = await fetch(`/api/wishlist?userId=${userId}`, {
+          headers: {
+            'x-user-id': userId,
+          },
+        });
+
+        if (response.ok) {
+          const wishlistItems = await response.json();
+          const exists = wishlistItems.some(item => item._id === productId);
+          setIsAdded(exists);
+        }
+      } catch (error) {
+        console.error("Error checking wishlist:", error);
+      }
+    };
+
+    checkWishlist();
+  }, [productId]);
 
   const handleAdd = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -25,11 +52,13 @@ export default function AddWishlist({ productId }: { productId: ObjectId }) {
     }
 
     try {
+      const userId = String(document.cookie.split('=')[1]);
       const response = await fetch(`http://localhost:3000/api/wishlist`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Cookie: document.cookie,
+          'x-user-id': userId,
         },
         body: JSON.stringify({ productId }),
       });
@@ -40,6 +69,7 @@ export default function AddWishlist({ productId }: { productId: ObjectId }) {
 
       const result = await response.json();
       console.log(result.message);
+      setIsAdded(true);
 
     } catch (error) {
       return handleError(error);
@@ -53,9 +83,9 @@ export default function AddWishlist({ productId }: { productId: ObjectId }) {
       <button 
         onClick={handleAdd} 
         className="btn bg-orange-500 hover:bg-orange-600 text-white" 
-        disabled={isLoading}
+        disabled={isLoading || isAdded}
       >
-        {isLoading ? "Adding..." : "Add to Wishlist"}
+        {isAdded ? "Added to wishlist" : isLoading ? "Adding..." : "Add to Wishlist"}
       </button>
       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
     </div>

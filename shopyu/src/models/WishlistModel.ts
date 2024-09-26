@@ -16,6 +16,10 @@ export class WishlistModel {
   }
 
   static async addToWishlist(userId: ObjectId, productId: ObjectId) {    
+    const existingItem = await this.collection().findOne({ userId, productId });
+    if (existingItem) {
+      throw new Error("Can't add duplicate data")
+    }
     const createdAt = new Date();
     const updatedAt = new Date();
     return await this.collection().insertOne({ userId, productId, createdAt, updatedAt });
